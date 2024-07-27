@@ -11,8 +11,13 @@ import home from '@/assets/home.png'
 import googleIcon from '@/assets/google-icon.svg'
 import githubIcon from '@/assets/github-icon.svg'
 import rocketIcon from '@/assets/rocket-icon.svg'
+import { signIn } from 'next-auth/react'
 
-export default function Home() {
+export default function SignIn() {
+  function handleSignIn(provider: 'google' | 'github') {
+    signIn(provider, { callbackUrl: '/feed' })
+  }
+
   return (
     <Container>
       <Image src={home} alt="" height={680} />
@@ -21,11 +26,11 @@ export default function Home() {
           <h1>Boas vindas!</h1>
           <span>Faça seu login ou acesse como visitante.</span>
           <SignInButtonsContainer>
-            <SignInButton>
+            <SignInButton onClick={() => handleSignIn('google')}>
               <Image src={googleIcon} alt="" />
               Entrar com Google
             </SignInButton>
-            <SignInButton>
+            <SignInButton onClick={() => handleSignIn('github')}>
               <Image src={githubIcon} alt="" />
               Entrar com Github
             </SignInButton>
