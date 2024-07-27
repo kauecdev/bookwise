@@ -1,5 +1,10 @@
+import { Template } from '../template'
 import { Container } from './styles'
 
-export default function Home() {
-  return <Container>Home</Container>
+export default function Feed() {
+  return (
+    <Template>
+      <Container>Feed</Container>
+    </Template>
+  )
 }

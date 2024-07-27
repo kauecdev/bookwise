@@ -12,15 +12,22 @@ import googleIcon from '@/assets/google-icon.svg'
 import githubIcon from '@/assets/github-icon.svg'
 import rocketIcon from '@/assets/rocket-icon.svg'
 import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 export default function SignIn() {
+  const router = useRouter()
+
   function handleSignIn(provider: 'google' | 'github') {
     signIn(provider, { callbackUrl: '/feed' })
   }
 
+  async function handleAccessFeedAsVisitor() {
+    await router.push('/feed')
+  }
+
   return (
     <Container>
-      <Image src={home} alt="" height={680} />
+      <Image src={home} alt="" height={680} priority />
       <SignInContainer>
         <SignInBox>
           <h1>Boas vindas!</h1>
@@ -34,7 +41,7 @@ export default function SignIn() {
               <Image src={githubIcon} alt="" />
               Entrar com Github
             </SignInButton>
-            <SignInButton>
+            <SignInButton onClick={handleAccessFeedAsVisitor}>
               <Image src={rocketIcon} alt="" />
               Acessar como visitante
             </SignInButton>
