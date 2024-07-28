@@ -17,8 +17,6 @@ import { signOut, useSession } from 'next-auth/react'
 export function SidebarMenu() {
   const session = useSession()
 
-  console.log(session)
-
   const navigationLinks = [
     {
       path: '/feed',

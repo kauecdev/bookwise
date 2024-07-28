@@ -1,31 +1,27 @@
-import Image from 'next/image'
-import { Body, BookDetails, Container, Header } from './styles'
 import { Rating } from '@/shared/interfaces/rating'
+import { Body, BookDetails, Container } from './styles'
+import Image from 'next/image'
 import { StarsRate } from '@/components/StarsRate'
 import { formatDateFromNow } from '@/utils/format-date-from-now'
 
-interface LatestRatingCardProps {
+interface UserOwnRatingCardProps {
   rating: Rating
 }
 
-export function LatestRatingCard({ rating }: LatestRatingCardProps) {
+export function UserOwnRatingCard({ rating }: UserOwnRatingCardProps) {
   return (
     <Container>
-      <Header>
-        <Image width={38} height={38} src={rating.user.avatarUrl} alt="" />
-        <div>
-          <span>{rating.user.name}</span>
-          <p>{formatDateFromNow(rating.createdAt)}</p>
-        </div>
-        <StarsRate rate={rating.rate} />
-      </Header>
       <Body>
         <Image src={rating.book.coverUrl} width={108} height={152} alt="" />
         <BookDetails>
           <header>
+            <p>{formatDateFromNow(rating.createdAt)}</p>
+            <StarsRate rate={rating.rate} />
+          </header>
+          <div>
             <span>{rating.book.name}</span>
             <p>{rating.book.author}</p>
-          </header>
+          </div>
           <p>{rating.description}</p>
         </BookDetails>
       </Body>

@@ -27,30 +27,12 @@ export const Content = styled('div', {
   gap: '4rem',
 })
 
-export const LatestRatingsContainer = styled('div', {
+export const RatingsContainer = styled('div', {
   display: 'flex',
   flexDirection: 'column',
+  gap: '$4',
 
-  '> span': {
-    fontSize: '$sm',
-    marginBottom: '$4',
-  },
-
-  '> div': {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '$3',
-  },
-})
-
-export const PopularBooksContainer = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '$2',
-
-  width: '100%',
-
-  header: {
+  '> header': {
     flex: 1,
     display: 'flex',
     alignItems: 'center',
@@ -61,9 +43,28 @@ export const PopularBooksContainer = styled('div', {
     },
   },
 
+  '> span': {
+    fontSize: '$sm',
+    padding: '$1 0',
+  },
+
   '> div': {
     display: 'flex',
     flexDirection: 'column',
     gap: '$3',
   },
 })
+
+// export const PopularBooksContainer = styled('div', {
+//   display: 'flex',
+//   flexDirection: 'column',
+//   gap: '$2',
+
+//   width: '100%',
+
+//   '> div': {
+//     display: 'flex',
+//     flexDirection: 'column',
+//     gap: '$3',
+//   },
+// })
