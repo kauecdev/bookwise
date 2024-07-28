@@ -6,6 +6,7 @@ export const Button = styled('button', {
   borderRadius: 4,
   display: 'flex',
   alignItems: 'center',
+  gap: '$2',
 
   cursor: 'pointer',
 
@@ -13,6 +14,7 @@ export const Button = styled('button', {
   fontWeight: '$bold',
 
   '&:not(:disabled):hover': {
+    transition: 'all 0.2s ease-in',
     backgroundColor: '#171A1F',
   },
 
