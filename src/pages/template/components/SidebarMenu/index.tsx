@@ -1,6 +1,12 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { ChartLineUp, Binoculars, SignOut, SignIn } from '@phosphor-icons/react'
+import {
+  ChartLineUp,
+  Binoculars,
+  SignOut,
+  SignIn,
+  User,
+} from '@phosphor-icons/react'
 
 import {
   ActiveLinkMarker,
@@ -9,10 +15,12 @@ import {
   CustomLink,
   LinksContainer,
   SignInButton,
-  SignOutButton,
+  UserProfileButton,
 } from './styles'
 import logo from '@/assets/logo.svg'
 import { signOut, useSession } from 'next-auth/react'
+import { Button } from '@/components/Button'
+import Link from 'next/link'
 
 export function SidebarMenu() {
   const session = useSession()
@@ -30,12 +38,24 @@ export function SidebarMenu() {
     },
   ]
 
+  if (session.status === 'authenticated') {
+    navigationLinks.push({
+      path: `/profile/${session.data.user.id}`,
+      label: 'Perfil',
+      icon: <User weight="bold" size={24} />,
+    })
+  }
+
   const router = useRouter()
 
   function handleSignOut() {
     signOut({
       callbackUrl: '/',
     })
+  }
+
+  function isLinkActive(linkPath: string) {
+    return router.asPath.split('/')[1].includes(linkPath.split('/')[1])
   }
 
   return (
@@ -52,9 +72,9 @@ export function SidebarMenu() {
               <CustomLink
                 href={link.path}
                 key={link.path}
-                data-active={router.asPath === link.path}
+                data-active={isLinkActive(link.path)}
               >
-                {router.asPath === link.path && <ActiveLinkMarker />}
+                {isLinkActive(link.path) && <ActiveLinkMarker />}
                 {link.icon}
                 {link.label}
               </CustomLink>
@@ -63,16 +83,23 @@ export function SidebarMenu() {
         </div>
         <footer>
           {session.status === 'authenticated' ? (
-            <SignOutButton onClick={handleSignOut} size="sm">
-              <Image
-                width={32}
-                height={32}
-                src={session.data.user.avatar_url}
-                alt=""
-              />
-              <span>{session.data.user.name}</span>
-              <SignOut weight="bold" size={20} />
-            </SignOutButton>
+            <div>
+              <UserProfileButton
+                href={`/profile/${session.data.user.id}`}
+                as={Link}
+              >
+                <Image
+                  width={32}
+                  height={32}
+                  src={session.data.user.avatar_url}
+                  alt=""
+                />
+                <span>{session.data.user.name}</span>
+              </UserProfileButton>
+              <Button onClick={handleSignOut} size="sm" color="red">
+                <SignOut weight="bold" size={20} />
+              </Button>
+            </div>
           ) : (
             <SignInButton>
               Fazer login <SignIn weight="bold" size={20} />{' '}

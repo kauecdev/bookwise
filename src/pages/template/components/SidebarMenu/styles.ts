@@ -55,6 +55,10 @@ export const Content = styled('div', {
     flexDirection: 'column',
     alignItems: 'center',
   },
+
+  '> footer > div': {
+    display: 'flex',
+  },
 })
 
 export const LinksContainer = styled('div', {
@@ -101,14 +105,10 @@ export const SignInButton = styled(Button, {
   },
 })
 
-export const SignOutButton = styled(Button, {
+export const UserProfileButton = styled(Button, {
   gap: '$3',
 
   img: {
     borderRadius: '$full',
-  },
-
-  svg: {
-    color: '#F75A68',
   },
 })

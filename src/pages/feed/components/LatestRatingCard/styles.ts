@@ -12,13 +12,16 @@ export const Header = styled('header', {
   justifyContent: 'space-between',
   gap: '$4',
 
-  img: {
-    borderRadius: '$full',
-    background: '$gradient-vertical',
-    padding: 1,
+  a: {
+    all: 'unset',
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    gap: '$4',
   },
 
-  '> div': {
+  'a > div': {
     flex: 1,
     span: {
       display: 'block',

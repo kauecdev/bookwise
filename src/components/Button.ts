@@ -31,6 +31,9 @@ export const Button = styled('button', {
       purple: {
         color: '$purple100',
       },
+      red: {
+        color: '#F75A68',
+      },
     },
     size: {
       sm: {

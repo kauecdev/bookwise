@@ -3,6 +3,8 @@ import { Body, BookDetails, Container, Header } from './styles'
 import { Rating } from '@/shared/interfaces/rating'
 import { StarsRate } from '@/components/StarsRate'
 import { formatDateFromNow } from '@/utils/format-date-from-now'
+import { Avatar } from '@/components/Avatar'
+import Link from 'next/link'
 
 interface LatestRatingCardProps {
   rating: Rating
@@ -12,11 +14,13 @@ export function LatestRatingCard({ rating }: LatestRatingCardProps) {
   return (
     <Container>
       <Header>
-        <Image width={38} height={38} src={rating.user.avatarUrl} alt="" />
-        <div>
-          <span>{rating.user.name}</span>
-          <p>{formatDateFromNow(rating.createdAt)}</p>
-        </div>
+        <Link href={`/profile/${rating.user.id}`}>
+          <Avatar avatarUrl={rating.user.avatarUrl} size="md" />
+          <div>
+            <span>{rating.user.name}</span>
+            <p>{formatDateFromNow(rating.createdAt)}</p>
+          </div>
+        </Link>
         <StarsRate rate={rating.rate} />
       </Header>
       <Body>
