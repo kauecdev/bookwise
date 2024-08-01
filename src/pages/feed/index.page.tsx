@@ -7,9 +7,9 @@ import { api } from '@/lib/axios'
 import { Rating } from '@/shared/interfaces/rating'
 import { Button } from '@/components/Button'
 import { PopularBookCard } from './components/PopularBookCard'
-import { BookWithAverageRate } from '@/shared/interfaces/book-with-average-rate'
 import { useSession } from 'next-auth/react'
 import { UserOwnRatingCard } from './components/UserOwnRatingCard'
+import { Book } from '@/shared/interfaces/book'
 
 export default function Feed() {
   const session = useSession()
@@ -37,7 +37,7 @@ export default function Feed() {
     queryFn: getLatestRatings,
   })
 
-  const { data: popularBooks } = useQuery<BookWithAverageRate[]>({
+  const { data: popularBooks } = useQuery<Book[]>({
     queryKey: ['popular-books'],
     queryFn: getPopularBooks,
   })

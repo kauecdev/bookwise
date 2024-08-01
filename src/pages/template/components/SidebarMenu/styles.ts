@@ -48,7 +48,7 @@ export const Content = styled('div', {
   alignItems: 'center',
   justifyContent: 'space-between',
   position: 'relative',
-  zIndex: 999,
+  zIndex: 9,
 
   '> div': {
     display: 'flex',

@@ -1,10 +1,10 @@
-import { BookWithAverageRate } from '@/shared/interfaces/book-with-average-rate'
 import { Container } from './styles'
 import Image from 'next/image'
 import { StarsRate } from '@/components/StarsRate'
+import { Book } from '@/shared/interfaces/book'
 
 interface PopularBookCardProps {
-  book: BookWithAverageRate
+  book: Book
 }
 
 export function PopularBookCard({ book }: PopularBookCardProps) {
