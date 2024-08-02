@@ -10,7 +10,44 @@ export default async function handler(
     return res.status(405).end()
   }
 
+  const { 'categories[]': categories, searchText } = req.query
+
   const books = await prisma.book.findMany({
+    where: {
+      ...(categories
+        ? {
+            categories: {
+              some: {
+                category: {
+                  name: {
+                    in: Array.isArray(categories)
+                      ? categories
+                      : ([categories] as string[]),
+                  },
+                },
+              },
+            },
+          }
+        : {}),
+      ...(searchText
+        ? {
+            OR: [
+              {
+                name: {
+                  contains: String(searchText),
+                  mode: 'insensitive',
+                },
+              },
+              {
+                author: {
+                  contains: String(searchText),
+                  mode: 'insensitive',
+                },
+              },
+            ],
+          }
+        : {}),
+    },
     include: {
       ratings: true,
       categories: {

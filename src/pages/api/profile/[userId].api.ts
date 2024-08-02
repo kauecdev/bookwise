@@ -66,6 +66,7 @@ export default async function handler(
     rate: rating.rate,
     description: rating.description,
     book: {
+      id: rating.book_id,
       coverUrl: rating.book.cover_url,
       name: rating.book.name,
       author: rating.book.author,

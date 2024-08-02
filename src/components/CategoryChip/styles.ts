@@ -20,5 +20,6 @@ export const Container = styled('button', {
   '&[data-active=true]': {
     backgroundColor: '$purple200',
     color: '$gray100',
+    border: '1px solid $purple200',
   },
 })

@@ -47,6 +47,7 @@ export const BookCard = styled('article', {
   backgroundColor: '$gray700',
   borderRadius: 8,
   padding: '1.125rem $5',
+  position: 'relative',
 
   cursor: 'pointer',
 
@@ -71,10 +72,25 @@ export const BookCard = styled('article', {
       overflow: 'hidden',
       '-webkit-line-clamp': 2,
       '-webkit-box-orient': 'vertical',
+      maxWidth: '120px',
     },
     p: {
       color: '$gray400',
       fontSize: '$sm',
     },
   },
+})
+
+export const AlreadyReadLabel = styled('span', {
+  backgroundColor: '$green300',
+  color: '$green100',
+  padding: '$1 $3',
+  textTransform: 'uppercase',
+  position: 'absolute',
+  top: 0,
+  right: 0,
+  borderTopRightRadius: 8,
+  borderBottomLeftRadius: 8,
+  fontSize: '$sm',
+  fontWeight: '$bold',
 })
