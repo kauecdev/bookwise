@@ -2,7 +2,6 @@ import Image from 'next/image'
 import {
   Container,
   SignInBox,
-  SignInButton,
   SignInButtonsContainer,
   SignInContainer,
 } from './styles'
@@ -13,6 +12,7 @@ import githubIcon from '@/assets/github-icon.svg'
 import rocketIcon from '@/assets/rocket-icon.svg'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/router'
+import { SignInButton } from '@/components/SignInButton'
 
 export default function SignIn() {
   const router = useRouter()

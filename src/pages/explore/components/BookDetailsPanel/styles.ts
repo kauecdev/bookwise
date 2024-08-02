@@ -122,6 +122,7 @@ export const RatingsContainer = styled('div', {
   header: {
     display: 'flex',
     justifyContent: 'space-between',
+    marginBottom: '$4',
 
     '> span': {
       fontSize: '$sm',
@@ -131,7 +132,6 @@ export const RatingsContainer = styled('div', {
 })
 
 export const RatingList = styled('div', {
-  marginTop: '$4',
   display: 'flex',
   flexDirection: 'column',
   gap: '$3',

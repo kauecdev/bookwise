@@ -21,9 +21,12 @@ import logo from '@/assets/logo.svg'
 import { signOut, useSession } from 'next-auth/react'
 import { Button } from '@/components/Button'
 import Link from 'next/link'
+import { useContext } from 'react'
+import { SignInContext } from '@/contexts/SignInContext'
 
 export function SidebarMenu() {
   const session = useSession()
+  const { toggleShowModal } = useContext(SignInContext)
 
   const navigationLinks = [
     {
@@ -101,7 +104,7 @@ export function SidebarMenu() {
               </Button>
             </div>
           ) : (
-            <SignInButton>
+            <SignInButton onClick={() => toggleShowModal(true)}>
               Fazer login <SignIn weight="bold" size={20} />{' '}
             </SignInButton>
           )}

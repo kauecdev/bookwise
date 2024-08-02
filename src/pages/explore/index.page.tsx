@@ -15,7 +15,7 @@ import { Category } from '@/shared/interfaces/category'
 import { Book } from '@/shared/interfaces/book'
 import Image from 'next/image'
 import { StarsRate } from '@/components/StarsRate'
-import { BookDetailsPanel } from './BookDetailsPanel'
+import { BookDetailsPanel } from './components/BookDetailsPanel'
 import { useState } from 'react'
 
 export default function Explore() {

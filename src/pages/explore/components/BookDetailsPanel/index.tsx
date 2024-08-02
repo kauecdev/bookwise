@@ -8,15 +8,18 @@ import {
   RatingList,
   RatingsContainer,
 } from './styles'
-import { ComponentProps } from 'react'
+import { ComponentProps, useContext, useState } from 'react'
 import { api } from '@/lib/axios'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { StarsRate } from '@/components/StarsRate'
 import { BookmarkSimple, BookOpen, X } from '@phosphor-icons/react'
 import { Button } from '@/components/Button'
 import { Book } from '@/shared/interfaces/book'
 import { Avatar } from '@/components/Avatar'
 import { formatDateFromNow } from '@/utils/format-date-from-now'
+import { useSession } from 'next-auth/react'
+import { SignInContext } from '@/contexts/SignInContext'
+import { RateForm } from '../RateForm'
 
 interface BookDetailsPanelProps extends ComponentProps<typeof Overlay> {
   isOpen: boolean
@@ -24,11 +27,41 @@ interface BookDetailsPanelProps extends ComponentProps<typeof Overlay> {
   onClose: () => void
 }
 
+export interface RatingFormData {
+  rate: number
+  rateDescription: string
+}
+
 export function BookDetailsPanel({
   isOpen = false,
   bookId,
   onClose,
 }: BookDetailsPanelProps) {
+  const session = useSession()
+  const { toggleShowModal } = useContext(SignInContext)
+
+  const [showRateForm, setShowRateForm] = useState(false)
+
+  const { mutateAsync: saveRatingFn } = useMutation({
+    mutationFn: saveRating,
+    onSuccess: () => {
+      refetch()
+    },
+  })
+
+  async function saveRating(data: RatingFormData) {
+    const { rate, rateDescription } = data
+
+    await api.post('/ratings/save', {
+      rate,
+      rateDescription,
+      bookId,
+      userId: session.data?.user.id,
+    })
+
+    handleCloseRateForm()
+  }
+
   async function getBookDetailsById(bookId: string) {
     if (bookId) {
       const response = await api.get(`/books/${bookId}`)
@@ -37,11 +70,23 @@ export function BookDetailsPanel({
     }
   }
 
-  const { data: bookDetails } = useQuery<Book>({
+  const { data: bookDetails, refetch } = useQuery<Book>({
     queryKey: ['book-details', bookId],
     queryFn: () => getBookDetailsById(bookId),
     enabled: isOpen,
   })
+
+  function handleToRate() {
+    if (session.status === 'unauthenticated') {
+      toggleShowModal(true)
+    }
+
+    setShowRateForm(true)
+  }
+
+  function handleCloseRateForm() {
+    setShowRateForm(false)
+  }
 
   return (
     <Overlay data-show={isOpen}>
@@ -94,10 +139,14 @@ export function BookDetailsPanel({
         <RatingsContainer>
           <header>
             <span>Avaliações</span>
-            <Button color="purple" size="sm">
+            <Button color="purple" size="sm" onClick={handleToRate}>
               Avaliar
             </Button>
           </header>
+
+          {showRateForm && (
+            <RateForm onClose={handleCloseRateForm} onSubmit={saveRatingFn} />
+          )}
 
           <RatingList>
             {bookDetails &&

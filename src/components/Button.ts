@@ -2,7 +2,6 @@ import { styled } from '@/styles/stitches.config'
 
 export const Button = styled('button', {
   all: 'unset',
-  padding: '$1 $2',
   borderRadius: 4,
   display: 'flex',
   alignItems: 'center',
@@ -24,6 +23,22 @@ export const Button = styled('button', {
   },
 
   variants: {
+    backgroundColor: {
+      primary: {
+        backgroundColor: 'transparent',
+        '&:not(:disabled):hover': {
+          transition: 'all 0.2s ease-in',
+          backgroundColor: '$gray500',
+        },
+      },
+      secondary: {
+        backgroundColor: '$gray600',
+        '&:not(:disabled):hover': {
+          transition: 'all 0.2s ease-in',
+          backgroundColor: '$gray500',
+        },
+      },
+    },
     color: {
       white: {
         color: '$gray100',
@@ -33,6 +48,9 @@ export const Button = styled('button', {
       },
       red: {
         color: '#F75A68',
+      },
+      green: {
+        color: '$green100',
       },
     },
     size: {
@@ -46,10 +64,19 @@ export const Button = styled('button', {
         fontSize: '$lg',
       },
     },
+    padding: {
+      normal: {
+        padding: '$1 $2',
+      },
+      distributed: {
+        padding: '$2',
+      },
+    },
   },
 
   defaultVariants: {
     color: 'white',
     size: 'md',
+    padding: 'normal',
   },
 })

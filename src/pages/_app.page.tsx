@@ -5,6 +5,7 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
 import { Nunito } from 'next/font/google'
+import { SignInContextProvider } from '@/contexts/SignInContext'
 
 globalStyles()
 
@@ -20,7 +21,9 @@ export default function App({
     <div className={`${nunito.className}`}>
       <SessionProvider session={session}>
         <QueryClientProvider client={queryClient}>
-          <Component {...pageProps} />
+          <SignInContextProvider>
+            <Component {...pageProps} />
+          </SignInContextProvider>
         </QueryClientProvider>
       </SessionProvider>
     </div>
